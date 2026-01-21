@@ -1,42 +1,43 @@
 #include <stdio.h>
 
 int main() {
-    int rows, cols;
-printf("Enter the number of rows: ");
-    if (scanf("%d", &rows) != 1 || rows <= 0) {
-        printf("Invalid input for rows.\n");
-        return 1;
-    }
-
-    printf("Enter the number of columns: ");
-    if (scanf("%d", &cols) != 1 || cols <= 0) {
-        printf("Invalid input for columns.\n");
-        return 1;
-    }
-
-   
-    int array[rows][cols];
+    int a[2][2], b[2][2];
     int i, j;
 
-   
-    printf("\nEnter the elements of the array:\n");
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
-            printf("Enter element [%d][%d]: ", i, j);
-            if (scanf("%d", &array[i][j]) != 1) {
-                printf("Invalid input. Please enter an integer.\n");
-                return 1;
-            }
+    // Input elements for first 2D array
+    printf("Enter elements for first 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("a[%d][%d] = ", i, j);
+            scanf("%d", &a[i][j]);
         }
     }
 
-  
-    printf("\nThe elements of the array are:\n");
-    for (i = 0; i < rows; i++) {
-        for (j = 0; j < cols; j++) {
-            printf("%d\t", array[i][j]);
+    // Input elements for second 2D array
+    printf("\nEnter elements for second 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("b[%d][%d] = ", i, j);
+            scanf("%d", &b[i][j]);
         }
-        printf("\n"); // Move to the next line after each row
+    }
+
+    // Display first array
+    printf("\nFirst 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("%d ", a[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Display second array
+    printf("\nSecond 2D array:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
     }
 
     return 0;
