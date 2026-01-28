@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char a[100]; // Increased size for safety
+    char b;      // Use a single char, not an array char b[10]
+    int count = 0; // Initialize to 0
+    int i;
+
+    printf("Enter A String: ");
+    // Reads the entire line including spaces
+    scanf(" %[^\n]", a); 
+    
+    for(i = 0; i < strlen(a); i++) {
+        b = tolower((unsigned char)a[i]); // Convert to lowercase once
+        if(b == 'a' || b == 'e' || b == 'i' || b == 'o' || b == 'u') {
+            count++;
+        }
+    }
+    
+    // Correctly using %d as a placeholder for the count variable
+    printf("No of Vowels In The Word Is %d\n", count);
+    
+    return 0;
+}
