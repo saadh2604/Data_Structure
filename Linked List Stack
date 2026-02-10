@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include <stdlib.h>
+
+struct Node{
+    int data;
+    struct Node*next;
+};
+struct Node*top = NULL;
+int empty(){
+    return top == NULL;
+}
+void push(int data){
+    struct Node*newNode = (struct Node*)malloc(sizeof(struct Node));
+    if(newNode == NULL){
+        printf("Stack Overflow\n");
+        return;
+        
+    }
+newNode->data = data;
+newNode->next = top;
+top = newNode;
+printf("%d pushed\n",data);
+}
+int peek(){
+    if(empty())return -1;
+    return top->data;
+}
+int pop(){
+    if(empty()){
+        printf("Stack Underflow\n");
+        return -1; // Return an error value
+    }
+    struct Node*temp = top;
+    int poppedData = temp->data;
+    top = top->next;
+    free(temp); // Free the memory of the popped node
+    return poppedData;
+}
+
+int main(){
+    push(10);
+    push(20);
+    push(30);
+    
+    printf("Top = %d\n",peek());
+    
+    printf("%d popped\n",pop());
+    printf("%d popped\n",pop());
+    
+    return 0;
+}
