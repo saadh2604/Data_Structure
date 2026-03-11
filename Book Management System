@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the Node structure
+struct Node {
+    int bookID;
+    struct Node* next;
+};
+
+// Insert a high-priority book at the beginning
+void insert_at_beginning(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->bookID = data;
+    newNode->next = *head;
+    *head = newNode;
+    printf("Book %d issued (High Priority).\n", data);
+}
+
+// Insert a normal book at the end
+void insert_at_end(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->bookID = data;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    printf("Book %d issued (Normal).\n", data);
+}
+
+// Delete a book ID when it is returned
+void delete_node(struct Node** head, int data) {
+    struct Node *temp = *head, *prev = NULL;
+
+    // Case 1: The book to be removed is at the head
+    if (temp != NULL && temp->bookID == data) {
+        *head = temp->next;
+        free(temp);
+        printf("Book %d returned and removed from list.\n", data);
+        return;
+    }
+
+    // Case 2: Search for the book ID
+    while (temp != NULL && temp->bookID != data) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // Case 3: Book ID not found
+    if (temp == NULL) {
+        printf("Book %d not found in issued list.\n", data);
+        return;
+    }
+
+    // Unlink the node and free memory
+    prev->next = temp->next;
+    free(temp);
+    printf("Book %d returned and removed from list.\n", data);
+}
+
+// Display all issued book IDs
+void traverse(struct Node* head) {
+    struct Node* temp = head;
+    printf("Currently Issued Book IDs: ");
+    if (temp == NULL) {
+        printf("None\n");
+        return;
+    }
+    while (temp != NULL) {
+        printf("%d -> ", temp->bookID);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* libraryList = NULL;
+
+    // Operations
+    insert_at_end(&libraryList, 101);    // Normal issue
+    insert_at_end(&libraryList, 102);    // Normal issue
+    insert_at_beginning(&libraryList, 50); // High priority
+    traverse(libraryList);
+
+    delete_node(&libraryList, 101);      // Book returned
+    traverse(libraryList);
+
+    return 0;
+}
